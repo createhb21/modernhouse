@@ -5,14 +5,24 @@ function Cards({}: ProfileCardProps) {
     <div className="grid min-h-screen gap-10 bg-slate-400 py-20 px-20">
       <div className="rounded-3xl bg-white p-6 shadow-xl">
         <span className="text-3xl font-semibold">Select Item</span>
-        <div className="my-2 flex justify-between">
-          <span className="text-gray-500">Grey Chair</span>
-          <span className="font-semibold">$19</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-gray-500">Grey Chair</span>
-          <span className="font-semibold">$19</span>
-        </div>
+        <ul>
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div
+              key={i}
+              className="my-2 flex justify-between odd:bg-blue-50 even:bg-yellow-500"
+            >
+              <span className="text-gray-500">Grey Chair</span>
+              <span className="font-semibold">$19</span>
+            </div>
+          ))}
+        </ul>
+        <ul>
+          {['a', 'b', 'c', ''].map((c, i) => (
+            <li className="bg-red-500 py-2 empty:hidden" key={i}>
+              {c}
+            </li>
+          ))}
+        </ul>
         <div className="mt-2 flex justify-between border-t-2 border-dashed pt-2">
           <span>Total</span>
           <span className="font-semibold">$10</span>
@@ -28,7 +38,7 @@ function Cards({}: ProfileCardProps) {
           Checkout
         </button>
       </div>
-      <div className="overflow-hidden rounded-3xl bg-white shadow-xl">
+      <div className="group overflow-hidden rounded-3xl bg-white shadow-xl">
         <div className="bg-blue-500 p-6 pb-14">
           <span className="text-2xl text-white">Profile</span>
         </div>
@@ -38,7 +48,7 @@ function Cards({}: ProfileCardProps) {
               <span className="text-sm text-gray-500">Orders</span>
               <span className="font-medium">340</span>
             </div>
-            <div className="h-24 w-24 rounded-full bg-red-400" />
+            <div className="h-24 w-24 rounded-full bg-red-400 transition-colors group-hover:bg-red-300" />
             <div className="flex flex-col items-center">
               <span className="text-sm text-gray-500">Spent</span>
               <span className="font-medium">$2,340</span>
