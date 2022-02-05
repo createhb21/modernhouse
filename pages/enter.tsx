@@ -40,15 +40,16 @@ export default function Enter() {
           </div>
         </div>
         <form className="mt-8 flex flex-col">
-          <label className="text-sm font-medium text-gray-700">
+          <label htmlFor="" className="text-sm font-medium text-gray-700">
             {method === 'email' ? 'Email address' : null}
             {method === 'phone' ? 'Phone number' : null}
           </label>
           <div className="mt-1">
             {method === 'email' ? (
               <input
+                id="input"
                 type="email"
-                className="focus:ountline-none w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="focus:ountline-none w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-400 focus:ring-indigo-400"
                 required
               />
             ) : null}
@@ -58,6 +59,7 @@ export default function Enter() {
                   +82
                 </span>
                 <input
+                  id="input"
                   type="number"
                   className="focus:ountline-none w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                   required
@@ -65,7 +67,7 @@ export default function Enter() {
               </div>
             ) : null}
           </div>
-          <button className="mt-5 rounded-md border-transparent bg-indigo-500 py-2 px-4 font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          <button className="mt-5 rounded-md border-transparent bg-indigo-400 py-2 px-4 font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
             {method === 'email' ? 'Get login link' : null}
             {method === 'phone' ? 'Get one-time password' : null}
           </button>
