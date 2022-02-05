@@ -16,16 +16,13 @@ const ItemDetail: NextPage = () => {
         </div>
         <div className="mt-5 ">
           <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
-          <span className="mt-3 block text-3xl text-gray-900">$140</span>
+          <span className="mt-3 block text-2xl text-gray-900">$140</span>
           <p className="my-6 text-base text-gray-700">
-            My money&apos;s in that office, right? If she start giving me some
-            bullshit about it ain&apos;t there, and we got to go someplace else
-            and get it, I&apos;m gonna shoot you in the head then and there.
-            Then I&apos;m gonna shoot that bitch in the kneecaps, find out where
-            my goddamn money is. She gonna tell me too. Hey, look at me when
-            I&apos;m talking to you, motherfucker. You listen: we go in there,
-            and that ni**a Winston or anybody else is in there, you the first
-            motherfucker to get shot. You understand?
+            Recoil은 Context API를 어떻게 사용하길래 상태 변경이 일어나도
+            RecoilRoot의 자식 컴포넌트들에 대한 불필요한 리렌더링을 유발하지
+            않을까? Recoil(0.6.0) 내부 구현을 살펴본 결과, 일단 Recoil에서는
+            스토어를 React의 상태로 갖고 있는게 아니라 React ref 형태로 관리를
+            하고, useStoreRef 훅을 사용해 내려주고 있었습니다.
           </p>
           <div className="flex items-center justify-between space-x-2">
             <button className="flex-1 rounded-md bg-indigo-400 py-3 font-medium text-white transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
