@@ -1,66 +1,68 @@
 import type { NextPage } from 'next';
+import Layout from '../../components/layout';
 
 const ItemDetail: NextPage = () => {
   return (
-    <div className="px-4 py-10">
-      <div className="mb-8">
-        <div className="h-96 bg-slate-300" />
-        <div className="flex cursor-pointer items-center space-x-3 border-t border-b py-3">
-          <div className="h-12 w-12 rounded-full bg-slate-300" />
-          <div>
-            <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
-            <p className="text-xs font-medium text-gray-500  ">
-              View profile &rarr;
-            </p>
-          </div>
-        </div>
-        <div className="mt-5 ">
-          <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
-          <span className="mt-3 block text-2xl text-gray-900">$140</span>
-          <p className="my-6 text-base text-gray-700">
-            Recoil은 Context API를 어떻게 사용하길래 상태 변경이 일어나도
-            RecoilRoot의 자식 컴포넌트들에 대한 불필요한 리렌더링을 유발하지
-            않을까? Recoil(0.6.0) 내부 구현을 살펴본 결과, 일단 Recoil에서는
-            스토어를 React의 상태로 갖고 있는게 아니라 React ref 형태로 관리를
-            하고, useStoreRef 훅을 사용해 내려주고 있었습니다.
-          </p>
-          <div className="flex items-center justify-between space-x-2">
-            <button className="flex-1 rounded-md bg-indigo-400 py-3 font-medium text-white transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
-              Talk to seller
-            </button>
-            <button className="flex items-center justify-center rounded-md p-3 text-gray-400 transition hover:bg-gray-100 hover:text-gray-500">
-              <svg
-                className="h-6 w-6 "
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
-        <div className="mt-6 grid  grid-cols-2 gap-4">
-          {[1, 2, 3, 4, 5, 6].map((_, i) => (
-            <div key={i} className=" cursor-pointer">
-              <div className="mb-4 h-56 w-full rounded-md bg-slate-300" />
-              <h3 className="-mb-1 text-gray-700">Galaxy S60</h3>
-              <span className="text-sm font-medium text-gray-900">$6</span>
+    <Layout canGoBack>
+      <div className="px-4 py-10">
+        <div className="mb-8">
+          <div className="h-96 bg-slate-300" />
+          <div className="flex cursor-pointer items-center space-x-3 border-t border-b py-3">
+            <div className="h-12 w-12 rounded-full bg-slate-300" />
+            <div>
+              <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
+              <p className="text-xs font-medium text-gray-500">
+                View profile &rarr;
+              </p>
             </div>
-          ))}
+          </div>
+          <div className="mt-5">
+            <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
+            <span className="mt-3 block text-2xl text-gray-900">$140</span>
+            <p className=" my-6 text-gray-700">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non,
+              sequi libero quisquam aspernatur numquam, accusamus nemo corporis
+              architecto, iure possimus sunt perferendis necessitatibus
+              quibusdam minus veniam vel? A, esse porro!
+            </p>
+            <div className="flex items-center justify-between space-x-2">
+              <button className="flex-1 rounded-md bg-indigo-400 py-3 font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ">
+                Talk to seller
+              </button>
+              <button className="flex items-center justify-center rounded-md p-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
+                <svg
+                  className="h-6 w-6 "
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
+          <div className=" mt-6 grid grid-cols-2 gap-4">
+            {[1, 2, 3, 4, 5, 6].map((_, i) => (
+              <div key={i}>
+                <div className="mb-4 h-56 w-full bg-slate-300" />
+                <h3 className="-mb-1 text-gray-700">Galaxy S60</h3>
+                <span className="text-sm font-medium text-gray-900">$6</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
