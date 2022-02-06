@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
-import Layout from '../../components/layout';
+import Button from '../../components/Button';
+import Layout from '../../components/Layout';
 
 const ItemDetail: NextPage = () => {
   return (
     <Layout canGoBack>
-      <div className="px-4 py-10">
+      <div className="px-4  py-4">
         <div className="mb-8">
           <div className="h-96 bg-slate-300" />
           <div className="flex cursor-pointer items-center space-x-3 border-t border-b py-3">
@@ -17,18 +18,16 @@ const ItemDetail: NextPage = () => {
             </div>
           </div>
           <div className="mt-5">
-            <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
-            <span className="mt-3 block text-2xl text-gray-900">$140</span>
+            <h1 className="text-3xl font-bold text-gray-900">
+              i5-2500 부르스타 커스텀 pc 팝니다
+            </h1>
+            <span className="mt-3 block text-2xl text-gray-900">$2400</span>
             <p className=" my-6 text-gray-700">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non,
-              sequi libero quisquam aspernatur numquam, accusamus nemo corporis
-              architecto, iure possimus sunt perferendis necessitatibus
-              quibusdam minus veniam vel? A, esse porro!
+              cpu: i5-2500 mb: ecc h61 ram: 8g ssd: WD green 120g hd: 2.5인치
+              500g
             </p>
             <div className="flex items-center justify-between space-x-2">
-              <button className="flex-1 rounded-md bg-indigo-400 py-3 font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ">
-                Talk to seller
-              </button>
+              <Button large text="Talk to seller" />
               <button className="flex items-center justify-center rounded-md p-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                 <svg
                   className="h-6 w-6 "
@@ -50,13 +49,15 @@ const ItemDetail: NextPage = () => {
           </div>
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            이 글과 함께 봤어요
+          </h2>
           <div className=" mt-6 grid grid-cols-2 gap-4">
             {[1, 2, 3, 4, 5, 6].map((_, i) => (
               <div key={i}>
                 <div className="mb-4 h-56 w-full bg-slate-300" />
-                <h3 className="-mb-1 text-gray-700">Galaxy S60</h3>
-                <span className="text-sm font-medium text-gray-900">$6</span>
+                <h3 className="-mb-1 text-gray-700">메리다 자전거</h3>
+                <span className="text-sm font-medium text-gray-900">$6700</span>
               </div>
             ))}
           </div>

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
-import Layout from '../../components/layout';
+import Layout from '../../components/Layout';
+import TextArea from '../../components/TextArea';
 
 const CommunityPostDetail: NextPage = () => {
   return (
@@ -11,7 +12,7 @@ const CommunityPostDetail: NextPage = () => {
         <div className="mb-3 flex cursor-pointer items-center space-x-3  border-b px-4 pb-3">
           <div className="h-10 w-10 rounded-full bg-slate-300" />
           <div>
-            <p className="text-sm font-medium text-gray-700">윤프로</p>
+            <p className="text-sm font-medium text-gray-700">명구</p>
             <p className="text-xs font-medium text-gray-500">
               View profile &rarr;
             </p>
@@ -19,8 +20,8 @@ const CommunityPostDetail: NextPage = () => {
         </div>
         <div>
           <div className="mt-2 px-4 text-gray-700">
-            <span className="font-medium text-indigo-500">Q.</span> 휴지통
-            무료나눔 받을 수 있을까요?
+            <span className="font-medium text-indigo-500">Q.</span> 닌텐도스위치
+            동물의숲 에디션 삽니다
           </div>
           <div className="mt-3 flex w-full space-x-5 border-t border-b-[2px] px-4 py-2.5  text-gray-700">
             <span className="flex items-center space-x-2 text-sm">
@@ -64,22 +65,22 @@ const CommunityPostDetail: NextPage = () => {
             <div className="h-8 w-8 rounded-full bg-slate-200" />
             <div>
               <span className="block text-sm font-medium text-gray-700">
-                의정부 팅커벨
+                구욷
               </span>
               <span className="block text-xs text-gray-500 ">2시간 전</span>
               <p className="mt-2 text-gray-700">
-                의정부 녹양동으로 오실 수 있으실까요? *^^*
+                229일만에 답변 드리겠습니다. 네고는 안됩니다!!
               </p>
             </div>
           </div>
         </div>
         <div className="px-4">
-          <textarea
-            className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400 "
-            rows={4}
+          <TextArea
+            name="description"
             placeholder="Answer this question!"
+            required
           />
-          <button className="mt-2 w-full rounded-md border border-transparent bg-indigo-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ">
+          <button className="mt-2 w-full rounded-md border border-transparent bg-indigo-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ">
             Reply
           </button>
         </div>
