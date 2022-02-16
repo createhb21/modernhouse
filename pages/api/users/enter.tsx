@@ -1,67 +1,45 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import twilio from 'twilio';
 import client from '../../../libs/server/client';
-import withHandler from '../../../libs/server/withHandler';
+import withHandler, { ResponseType } from '../../../libs/server/withHandler';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+
+async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseType>,
+) {
   const { phone, email } = req.body;
-  const payload = phone ? { phone: +phone } : { email };
+  const user = phone ? { phone: +phone } : email ? { email } : null;
+  if (!user) return res.status(400).json({ ok: false });
+  const payload = Math.floor(10000 + Math.random() * 90000) + '';
 
   const token = await client.token.create({
     data: {
-      payload: '1234',
+      payload,
       user: {
         connectOrCreate: {
-          where: { ...payload },
+          where: { ...user },
           create: {
             name: 'Anonymous',
-            ...payload,
+            ...user,
           },
         },
       },
     },
   });
+  if (phone) {
+    const message = await twilioClient.messages.create({
+      messagingServiceSid: process.env.TWILIO_MSID,
+      to: process.env.TWILIO_PHONE!,
+      body: `Your login token is ${payload}`,
+    });
+    console.log(message);
+  }
 
-  console.log(token);
-
-  // if (email) {
-  //   user = await client.user.findUnique({
-  //     where: { email },
-  //   });
-  //   if (user) {
-  //     console.log('found');
-  //   }
-  //   if (!user) {
-  //     console.log('Did not find. will create');
-
-  //     user = await client.user.create({
-  //       data: {
-  //         name: 'Anonymous',
-  //         email,
-  //       },
-  //     });
-  //   }
-  //   console.log(user);
-  // }
-  // if (phone) {
-  //   user = await client.user.findUnique({
-  //     where: { phone: +phone },
-  //   });
-  //   if (user) {
-  //     console.log('found');
-  //   }
-  //   if (!user) {
-  //     console.log('Did not find. will create');
-
-  //     user = await client.user.create({
-  //       data: {
-  //         name: 'Anonymous',
-  //         phone: +phone,
-  //       },
-  //     });
-  //   }
-  //   console.log(user);
-  // }
-  return res.status(200).end();
+  return res.json({
+    ok: true,
+  });
 }
 
 export default withHandler('POST', handler);
