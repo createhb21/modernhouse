@@ -30,11 +30,9 @@ const Enter: NextPage = () => {
     enter(validForm);
   };
 
-  console.log(loading, data, error);
-
   return (
     <div className="mt-16 px-4">
-      <h3 className="text-center text-3xl font-bold">Enter to Carrot</h3>
+      <h3 className="text-center text-3xl font-bold">Enter to Commerce</h3>
       <div className="mt-12">
         <div className="flex flex-col items-center">
           <h5 className="text-sm font-medium text-gray-500">Enter using:</h5>
@@ -90,9 +88,11 @@ const Enter: NextPage = () => {
               required
             />
           ) : null}
-          {method === 'email' ? <Button text={'Get login link'} /> : null}
+          {method === 'email' ? (
+            <Button text={loading ? 'Loading' : 'Get login link'} />
+          ) : null}
           {method === 'phone' ? (
-            <Button text={submitting ? 'Loading' : 'Get one-time password'} />
+            <Button text={loading ? 'Loading' : 'Get one-time password'} />
           ) : null}
         </form>
 
