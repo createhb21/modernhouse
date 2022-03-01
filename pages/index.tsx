@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import FloatingButton from '@components/FloatingButton';
 import Item from '@components/Item';
 import useUser from '@libs/client/useUser';
-import Layout from '@components/layout';
+import Layout from '@components/Layout';
 import Head from 'next/head';
 
 const Home: NextPage = () => {
