@@ -1,8 +1,16 @@
 import type { NextPage } from 'next';
 import Button from '@components/Button';
 import Layout from '@components/Layout';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import Link from 'next/link';
 
 const ItemDetail: NextPage = () => {
+  const router = useRouter();
+  const { data } = useSWR(
+    router.query.id ? `/api/products/${router.query.id}` : null,
+  );
+
   return (
     <Layout canGoBack>
       <div className="px-4  py-4">
@@ -11,21 +19,24 @@ const ItemDetail: NextPage = () => {
           <div className="flex cursor-pointer items-center space-x-3 border-t border-b py-3">
             <div className="h-12 w-12 rounded-full bg-slate-300" />
             <div>
-              <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
-              <p className="text-xs font-medium text-gray-500">
-                View profile &rarr;
+              <p className="text-sm font-medium text-gray-700">
+                {data?.product?.user?.name}
               </p>
+              <Link href={`/users/profile/${data?.product?.user?.id}`}>
+                <a className="text-xs font-medium text-gray-500">
+                  View profile &rarr;
+                </a>
+              </Link>
             </div>
           </div>
           <div className="mt-5">
             <h1 className="text-3xl font-bold text-gray-900">
-              i5-2500 부르스타 커스텀 pc 팝니다
+              {data?.product?.name}
             </h1>
-            <span className="mt-3 block text-2xl text-gray-900">$2400</span>
-            <p className=" my-6 text-gray-700">
-              cpu: i5-2500 mb: ecc h61 ram: 8g ssd: WD green 120g hd: 2.5인치
-              500g
-            </p>
+            <span className="mt-3 block text-2xl text-gray-900">
+              ${data?.product?.price}
+            </span>
+            <p className=" my-6 text-gray-700">{data?.product?.description}</p>
             <div className="flex items-center justify-between space-x-2">
               <Button large text="Talk to seller" />
               <button className="flex items-center justify-center rounded-md p-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
