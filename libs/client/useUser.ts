@@ -8,10 +8,9 @@ export default function useUser() {
 
   useEffect(() => {
     if (data && !data.ok) {
-      router.replace('/');
+      router.replace('/enter');
     }
-  }, [data]);
-
+  }, [data, router]);
   //   const [user, setUser] = useState();
   //   useEffect(() => {
   //     fetch('/api/users/me')
@@ -23,6 +22,5 @@ export default function useUser() {
   //         setUser(data.profile);
   //       });
   //   }, [router]);
-
   return { user: data?.profile, isLoading: !data && !error };
 }
