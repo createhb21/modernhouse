@@ -7,14 +7,16 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>,
 ) {
-  const {
-    body: { question },
-    session: { user },
-  } = req;
   if (req.method === 'POST') {
+    const {
+      body: { question, latitude, longitude },
+      session: { user },
+    } = req;
     const post = await client.post.create({
       data: {
         question,
+        latitude,
+        longitude,
         user: {
           connect: {
             id: user?.id,
@@ -28,6 +30,13 @@ async function handler(
     });
   }
   if (req.method === 'GET') {
+    const {
+      query: { latitude, longitude },
+    } = req;
+    console.log(latitude);
+
+    const latitudeNumber = parseFloat(latitude.toString());
+    const longitudeNumber = parseFloat(longitude.toString());
     const posts = await client.post.findMany({
       include: {
         user: {
@@ -38,6 +47,16 @@ async function handler(
             wondering: true,
             answers: true,
           },
+        },
+      },
+      where: {
+        latitude: {
+          gte: latitudeNumber - 0.01,
+          lte: latitudeNumber + 0.01,
+        },
+        longitude: {
+          gte: longitudeNumber - 0.01,
+          lte: longitudeNumber + 0.01,
         },
       },
     });
