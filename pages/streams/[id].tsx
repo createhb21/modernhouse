@@ -1,20 +1,32 @@
 import type { NextPage } from 'next';
 import Layout from '@components/Layout';
 import Message from '@components/Message';
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
+import { Stream } from '@prisma/client';
+
+interface StreamResponse {
+  ok: boolean;
+  stream: Stream;
+}
 
 const Stream: NextPage = () => {
+  const router = useRouter();
+  const { data } = useSWR<StreamResponse>(
+    router.query.id ? `/api/streams/${router.query.id}` : null,
+  );
   return (
     <Layout canGoBack>
       <div className="space-y-4 py-10  px-4">
         <div className="aspect-video w-full rounded-md bg-slate-300 shadow-sm" />
         <div className="mt-5">
-          <h1 className="text-3xl font-bold text-gray-900">나이키에어맥스95</h1>
-          <span className="mt-3 block text-2xl text-gray-900">$650</span>
-          <p className=" my-6 text-gray-700">
-            거의 새것 나이키 공식홈에서 구매 나이키 에어맥스 95 에센셜
-            트리플화이트 착용 5회 미만 사이즈미스로 불편해서 가지고 있다가
-            올립니다! 사이즈 230
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {data?.stream?.name}
+          </h1>
+          <span className="mt-3 block text-2xl text-gray-900">
+            ${data?.stream?.price}
+          </span>
+          <p className=" my-6 text-gray-700">{data?.stream?.description}</p>
         </div>
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
