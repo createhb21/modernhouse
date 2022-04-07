@@ -1,21 +1,13 @@
 import type { NextPage } from 'next';
 import Item from '@components/Item';
 import Layout from '@components/Layout';
+import ProductList from '@components/ProductList';
 
 const Loved: NextPage = () => {
   return (
     <Layout title="관심목록" canGoBack>
       <div className="flex flex-col space-y-5 divide-y  pb-10">
-        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
-          <Item
-            key={i}
-            id={i}
-            title="iPhone 14"
-            price={99}
-            comments={1}
-            hearts={1}
-          />
-        ))}
+        <ProductList kind="favs" />
       </div>
     </Layout>
   );
