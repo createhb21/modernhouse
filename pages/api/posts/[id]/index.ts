@@ -25,6 +25,8 @@ async function handler(
             select: { id: true, name: true, avatar: true },
           },
         },
+        take: 10,
+        skip: 10,
       },
       _count: {
         select: { answers: true, wondering: true },
