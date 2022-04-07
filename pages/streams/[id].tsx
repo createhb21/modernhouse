@@ -4,17 +4,51 @@ import Message from '@components/Message';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { Stream } from '@prisma/client';
+import { useForm } from 'react-hook-form';
+import useMutation from '@libs/client/useMutation';
+import useUser from '@libs/client/useUser';
+import { useEffect } from 'react';
 
+interface StreamMessage {
+  message: string;
+  id: number;
+  user: {
+    avatar?: string;
+    id: number;
+  };
+}
+interface StreamWithMessages extends Stream {
+  messages: StreamMessage[];
+}
 interface StreamResponse {
   ok: boolean;
-  stream: Stream;
+  stream: StreamWithMessages;
+}
+
+interface MessageForm {
+  message: string;
 }
 
 const Stream: NextPage = () => {
   const router = useRouter();
-  const { data } = useSWR<StreamResponse>(
+  const { user } = useUser();
+  const { register, handleSubmit, reset } = useForm<MessageForm>();
+  const { data, mutate } = useSWR<StreamResponse>(
     router.query.id ? `/api/streams/${router.query.id}` : null,
   );
+  const [sendmessage, { loading, data: sendMessageData }] = useMutation(
+    `/api/streams/${router.query.id}/messages`,
+  );
+  const onValid = (form: MessageForm) => {
+    if (loading) return;
+    reset();
+    sendmessage(form);
+  };
+  useEffect(() => {
+    if (sendMessageData && sendMessageData.ok) {
+      mutate();
+    }
+  }, [mutate, sendMessageData]);
   return (
     <Layout canGoBack>
       <div className="space-y-4 py-10  px-4">
@@ -33,14 +67,22 @@ const Stream: NextPage = () => {
             채팅으로 거래하기
           </h2>
           <div className="h-[50vh] space-y-4 overflow-y-scroll py-10  px-4 pb-16">
-            <Message message="지나가다 알려드리고 싶어서, 씨레기 아니고 실외기 입니당 🌝" />
-            <Message message="ㅋㅋㅋㅋㅋㅋㅋ" reversed />
-            <Message message="감사합니다 ㅋ" />
+            {data?.stream.messages.map((message) => (
+              <Message
+                key={message.id}
+                message={message.message}
+                reversed={message.user.id === user?.id}
+              />
+            ))}
           </div>
-          <div className="fixed inset-x-0 bottom-0  bg-white py-2">
-            <div className="relative mx-auto flex w-full  max-w-md items-center">
+          <div className="fixed inset-x-0 bottom-0  bg-white py-2 px-4">
+            <form
+              onSubmit={handleSubmit(onValid)}
+              className="relative mx-auto flex w-full  max-w-md items-center"
+            >
               <input
                 type="text"
+                {...register('message', { required: true })}
                 className="w-full rounded-full border-gray-300 pr-12 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
               />
               <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
@@ -48,7 +90,7 @@ const Stream: NextPage = () => {
                   &rarr;
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
