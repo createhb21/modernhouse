@@ -1,7 +1,7 @@
-import { withApiSession } from '@libs/server/withSession';
 import { NextApiRequest, NextApiResponse } from 'next';
-import client from '../../../../libs/server/client';
-import withHandler, { ResponseType } from '../../../../libs/server/withHandler';
+import withHandler, { ResponseType } from '@libs/server/withHandler';
+import client from '@libs/server/client';
+import { withApiSession } from '@libs/server/withSession';
 
 async function handler(
   req: NextApiRequest,
@@ -19,7 +19,7 @@ async function handler(
   if (req.method === 'POST') {
     const {
       session: { user },
-      body: { email, phone, name },
+      body: { email, phone, name, avatarId },
     } = req;
     const currentUser = await client.user.findUnique({
       where: {
@@ -44,7 +44,9 @@ async function handler(
         });
       }
       await client.user.update({
-        where: { id: user?.id },
+        where: {
+          id: user?.id,
+        },
         data: {
           email,
         },
@@ -69,7 +71,9 @@ async function handler(
         });
       }
       await client.user.update({
-        where: { id: user?.id },
+        where: {
+          id: user?.id,
+        },
         data: {
           phone,
         },
@@ -78,8 +82,22 @@ async function handler(
     }
     if (name) {
       await client.user.update({
-        where: { id: user?.id },
-        data: { name },
+        where: {
+          id: user?.id,
+        },
+        data: {
+          name,
+        },
+      });
+    }
+    if (avatarId) {
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          avatar: avatarId,
+        },
       });
     }
     res.json({ ok: true });
@@ -87,5 +105,8 @@ async function handler(
 }
 
 export default withApiSession(
-  withHandler({ methods: ['GET', 'POST'], handler }),
+  withHandler({
+    methods: ['GET', 'POST'],
+    handler,
+  }),
 );

@@ -34,6 +34,10 @@ const EditProfile: NextPage = () => {
     if (user?.name) setValue('name', user.name);
     if (user?.email) setValue('email', user.email);
     if (user?.phone) setValue('phone', user.phone);
+    if (user?.avatar)
+      setAvatarPreview(
+        `https://imagedelivery.net/TZbiL5sWOh5jy9Zqwmq3PQ/${user.avatar}/public`,
+      );
   }, [setValue, user]);
   const [editProfile, { data, loading }] =
     useMutation<EditProfileResponse>(`/api/users/me`);
@@ -44,17 +48,25 @@ const EditProfile: NextPage = () => {
         message: 'Email OR Phone number are required. You need to choose one.',
       });
     }
-    if (avatar && avatar.length > 0) {
+    if (avatar && avatar.length > 0 && user) {
       // ask for CloudFlare Url
-      const cloudflareRequest = await (await fetch(`/api/files`)).json();
-      console.log(cloudflareRequest);
-      // upload file to CF URL
-      return;
+      const { uploadURL } = await (await fetch(`/api/files`)).json();
+      // upload file to CF
+      const form = new FormData();
+      form.append('file', avatar[0], user?.id + '');
+      const {
+        result: { id },
+      } = await (
+        await fetch(uploadURL, {
+          method: 'POST',
+          body: form,
+        })
+      ).json();
       editProfile({
         email,
         phone,
         name,
-        // avatarUrl: CF URL
+        avatarId: id,
       });
     } else {
       editProfile({
