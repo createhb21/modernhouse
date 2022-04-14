@@ -79,7 +79,7 @@ const Stream: NextPage = () => {
             채팅으로 거래하기
           </h2>
           <div className="h-[50vh] space-y-4 overflow-y-scroll py-10  px-4 pb-16">
-            {data?.stream.messages.map((message) => (
+            {data?.stream?.messages.map((message) => (
               <Message
                 key={message.id}
                 message={message.message}

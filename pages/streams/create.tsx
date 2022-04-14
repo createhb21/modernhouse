@@ -11,7 +11,7 @@ import { Stream } from '@prisma/client';
 
 interface CreateForm {
   name: string;
-  price: number;
+  price: string;
   description: string;
 }
 
@@ -22,7 +22,7 @@ interface CreateResponse {
 
 const Create: NextPage = () => {
   const router = useRouter();
-  const [createStream, { data, loading }] =
+  const [createStream, { loading, data }] =
     useMutation<CreateResponse>(`/api/streams`);
   const { register, handleSubmit } = useForm<CreateForm>();
   const onValid = (form: CreateForm) => {
@@ -36,7 +36,7 @@ const Create: NextPage = () => {
   }, [data, router]);
   return (
     <Layout canGoBack title="Go Live">
-      <form onSubmit={handleSubmit(onValid)} className="space-y-4 py-10 px-4">
+      <form onSubmit={handleSubmit(onValid)} className=" space-y-4 py-10 px-4">
         <Input
           register={register('name', { required: true })}
           required
@@ -57,7 +57,7 @@ const Create: NextPage = () => {
           name="description"
           label="Description"
         />
-        <Button text={loading ? 'Loading...' : 'Go Live'} />
+        <Button text={loading ? 'Loading...' : 'Go live'} />
       </form>
     </Layout>
   );

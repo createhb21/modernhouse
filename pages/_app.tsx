@@ -4,7 +4,7 @@ import { SWRConfig } from 'swr';
 import useUser from '@libs/client/useUser';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  useUser();
+  // useUser();
   return (
     <SWRConfig
       value={{ fetcher: (url: string) => fetch(url).then((res) => res.json()) }}
