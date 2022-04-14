@@ -12,6 +12,7 @@ async function handler(
     session: { user },
     body: { answer },
   } = req;
+
   const newAnswer = await client.answer.create({
     data: {
       user: {
@@ -27,8 +28,6 @@ async function handler(
       answer,
     },
   });
-  console.log(newAnswer);
-  //   if(!post)   // todo
   res.json({
     ok: true,
     answer: newAnswer,

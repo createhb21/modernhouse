@@ -82,6 +82,9 @@ model Answer {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    Int
   answer    String   @db.MediumText
+
+  @@index([userId])
+  @@index([postId])
 }
 
 model Wondering {
@@ -163,9 +166,9 @@ model Stream {
   user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        Int
   messages      Message[]
-  cloudflareId  String?
-  cloudflareUrl String?
-  cloudflareKey String?
+  cloudflareId  String
+  cloudflareUrl String
+  cloudflareKey String
 }
 
 model Message {
